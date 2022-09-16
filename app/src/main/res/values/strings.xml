@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Control Light</string>
+    <string name="back"><![CDATA[<]]></string>
+    <string name="open">Open</string>
+    <string name="stop">Stop</string>
+    <string name="close">Close</string>
+    <string name="next"><![CDATA[>]]></string>
+    <string name="setting">Setting</string>
+</resources>

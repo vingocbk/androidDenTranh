@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+
+        <TextView
+            android:id="@+id/txtBackListDevice"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="@string/back"
+            android:textColor="#ffffff"
+            android:textSize="35sp"/>
+
+        <TextView
+            android:layout_toRightOf="@+id/txtBackListDevice"
+            android:gravity="center"
+            android:text="List Device"
+            android:textColor="#ffffff"
+            android:textSize="25sp"
+
+            android:layout_width="wrap_content"
+            android:layout_height="50dp">
+        </TextView>
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/imgRefeshListdevice"-->
+        <!--            android:layout_alignParentRight="true"-->
+        <!--            android:layout_centerInParent="true"-->
+        <!--            android:background="@mipmap/ic_refesh_listdevice"-->
+        <!--            android:visibility="invisible"-->
+        <!--            android:layout_width="30dp"-->
+        <!--            android:layout_height="30dp">-->
+        <!--        </ImageView>-->
+
+        <ProgressBar
+            android:id="@+id/pgbRefreshListDevice"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:visibility="invisible" />
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/lvListDevice"
+        android:background="#ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
+
+</LinearLayout>
