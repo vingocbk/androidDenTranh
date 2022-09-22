@@ -30,6 +30,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -100,9 +101,9 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
                     if (mmDevice != null && isConnected(mmDevice)) {
-                        String data = "{\"";
-                        data += String.valueOf(finalI);
-                        data += "\":\"";
+                        String data = "{\"channel\":\"";
+                        data += String.valueOf(finalI + 1);
+                        data += "\",\"data\":\"";
                         data += String.valueOf(seekBar.getProgress());
                         data += "\"}";
                         byte[] bytes = data.getBytes(Charset.defaultCharset());
@@ -131,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 if (mmDevice != null && isConnected(mmDevice)) {
-                    String data = "{\"all\":\"";
+                    String data = "{\"channel\":\"all\",\"data\":\"";
                     data += String.valueOf(seekBar.getProgress());
                     data += "\"}";
                     byte[] bytes = data.getBytes(Charset.defaultCharset());
@@ -400,32 +401,28 @@ public class MainActivity extends AppCompatActivity {
             byte[] readBuffer = new byte[1024];;
             int readBufferPosition = 0;
             String incomingMessage = "";
-            String data[] = new String[24];
+            int data[] = new int[12];
             // Keep listening to the InputStream until an exception occurs
             while (true) {
-
                 // Read from the InputStream
                 try {
-
                     bytes = mmInStream.read(buffer);
-
                     incomingMessage += new String(buffer, 0, bytes);
                     if(incomingMessage.contains("}")){
                         Log.d(TAG, "InputStream: " + incomingMessage);
                         JSONObject reader = new JSONObject(incomingMessage);
-                        //all distant
-                        data[0] = reader.getString("1-1");
-                        data[1] = reader.getString("2-1");
-                        data[2] = reader.getString("3-1");
-                        data[3] = reader.getString("4-1");
-                        data[4] = reader.getString("5-1");
-                        data[5] = reader.getString("6-1");
+                        JSONArray jsonArray = reader.getJSONArray("1");
+                        for(int i = 0; i < 12; i++){
+                            data[i] = jsonArray.getInt(i);
+                        }
                         incomingMessage = "";
                     }
                     runOnUiThread(new Runnable() {
-
                         @Override
                         public void run() {
+                            for(int i = 0; i < 12; i++){
+                                sbControlLight[i].setProgress(data[i]);
+                            }
                         }
                     });
 
@@ -433,7 +430,7 @@ public class MainActivity extends AppCompatActivity {
                 } catch (IOException | JSONException e) {
                     Log.e(TAG, "write: Error reading Input Stream. " + e.getMessage());
 //                    Toast.makeText(MainActivity.this, "Kết nối thất bại", Toast.LENGTH_SHORT).show();
-                    break;
+//                    break;
                 }
             }
         }
