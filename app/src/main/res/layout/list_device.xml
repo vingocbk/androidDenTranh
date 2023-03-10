@@ -55,7 +55,7 @@
 
     <ListView
         android:id="@+id/lvListDevice"
-        android:background="#ffffff"
+        android:background="#786F6F"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </ListView>
